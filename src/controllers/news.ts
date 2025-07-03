@@ -19,8 +19,10 @@ export class NewsController {
         return NewsController.instance;
     }
 
-    async getNews() {      
-        return await News.find().sort({ createdAt: -1 });
+    async getNews(limit: number, skip: number) {      
+
+
+        return await News.find().sort({ createdAt: -1 }).skip((skip - 1)*limit).limit(limit);
       }
 
     async createNews(product: INews) {
