@@ -14,10 +14,12 @@ const productControllerInstance = NewsController.getInstance()
 export const newsRouter: () => Router = () => {
 
 
-router.get('/all/:limit/:skip', async (req, res, next) => {
+router.get('/all', async (req, res, next) => {
   try {
-    const { limit, skip } = req.params;
-    const { data, total } = await productControllerInstance.getNews(+limit, +skip);
+
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = parseInt(req.query.skip as string)-1 || 0;
+    const { data, total } = await productControllerInstance.getNews(limit, skip);
     
     return res.status(200).json({
       success: true,

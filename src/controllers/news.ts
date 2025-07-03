@@ -21,7 +21,7 @@ export class NewsController {
 
 // Example with Mongoose
     async getNews(limit: number, skip: number) {
-    const data = await News.find().skip(skip).limit(limit);
+    const data = await News.find().sort({ createdAt: -1 }).skip(skip).limit(limit);
     const total = await News.countDocuments();
     return { data, total };
     }
